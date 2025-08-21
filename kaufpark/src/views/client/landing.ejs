@@ -1,0 +1,31 @@
+<%- include('../partials/layout', { body: `
+  <section class=\"kp-card\">
+    <h1 class=\"kp-title\">Bienvenido a Kaufpark</h1>
+    <p class=\"kp-sub\">Plaza: ${spot}</p>
+    <div class=\"kp-video\">
+      <video id=\"adVideo\" playsinline webkit-playsinline preload=\"auto\" src=\"${videoUrl}\" controls></video>
+    </div>
+    <form id=\"requestForm\" method=\"POST\" action=\"/request\">
+      <input type=\"hidden\" name=\"spot\" value=\"${spot}\" />
+      <button id=\"requestBtn\" class=\"kp-btn kp-btn-primary\" disabled>Solicitar servicio</button>
+    </form>
+    <p class=\"kp-note\">El botón se habilita luego de 6 segundos de reproducción.</p>
+  </section>
+  <script>
+    (function() {
+      const video = document.getElementById('adVideo');
+      const btn = document.getElementById('requestBtn');
+      let elapsed = 0;
+      let gate = setInterval(() => {
+        if (!video.paused && !video.seeking) {
+          elapsed += 500;
+        }
+        if (elapsed >= 6000) {
+          btn.disabled = false;
+          clearInterval(gate);
+        }
+      }, 500);
+    })();
+  </script>
+` }) %>
+

@@ -1,0 +1,30 @@
+<%- include('../partials/layout', { body: `
+  <section class=\"kp-card\">
+    <div class=\"kp-row\" style=\"justify-content: space-between; align-items:center;\">
+      <h1 class=\"kp-title\">Solicitudes pendientes</h1>
+      <form method=\"POST\" action=\"/operator/logout\"><button class=\"kp-btn\">Salir</button></form>
+    </div>
+    ${requests.length === 0 ? '<p>No hay solicitudes por ahora.</p>' : ''}
+    <div class=\"kp-list\">
+    ${requests.map(r => `
+      <div class=\"kp-item\">
+        <div>
+          <div class=\"kp-item-title\">Plaza ${r.spot}</div>
+          <div class=\"kp-item-sub\">Estado: ${r.status} · ${new Date(r.created_at).toLocaleString('es-CL')}</div>
+        </div>
+        <div class=\"kp-item-actions\">
+          <form method=\"POST\" action=\"/operator/requests/${r.id}/status\">
+            <select name=\"status\">
+              <option ${r.status==='PENDIENTE'?'selected':''}>PENDIENTE</option>
+              <option ${r.status==='EN_PROCESO'?'selected':''}>EN_PROCESO</option>
+              <option ${r.status==='FINALIZADO'?'selected':''}>FINALIZADO</option>
+            </select>
+            <button class=\"kp-btn kp-btn-primary\">Actualizar</button>
+          </form>
+        </div>
+      </div>
+    `).join('')}
+    </div>
+  </section>
+` }) %>
+

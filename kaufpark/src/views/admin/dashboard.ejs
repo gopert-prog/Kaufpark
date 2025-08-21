@@ -1,0 +1,27 @@
+<%- include('../partials/layout', { body: `
+  <section class=\"kp-card\">
+    <div class=\"kp-row\" style=\"justify-content: space-between; align-items:center;\">
+      <h1 class=\"kp-title\">Panel Administrador</h1>
+      <form method=\"POST\" action=\"/admin/logout\"><button class=\"kp-btn\">Salir</button></form>
+    </div>
+    <div class=\"kp-section\">
+      <h2 class=\"kp-subtitle\">Video publicitario</h2>
+      ${currentVideoUrl ? `<video src=\"${currentVideoUrl}\" controls style=\"width:100%; max-height:240px;\"></video>` : '<p>No hay video configurado.</p>'}
+      <form method=\"POST\" action=\"/admin/upload\" enctype=\"multipart/form-data\" class=\"kp-form\" style=\"margin-top:8px;\">
+        <input type=\"file\" name=\"video\" accept=\"video/*\" required />
+        <button class=\"kp-btn kp-btn-primary\">Subir/Actualizar</button>
+      </form>
+    </div>
+    <div class=\"kp-section\">
+      <h2 class=\"kp-subtitle\">Estadísticas</h2>
+      <ul class=\"kp-stats\">
+        <li>Escaneos: <strong>${stats.scansCount}</strong></li>
+        <li>Servicios completados: <strong>${stats.completedCount}</strong></li>
+        <li>Promedio atención (min): <strong>${stats.avgAttentionMinutes}</strong></li>
+        <li>Promedio servicio (min): <strong>${stats.avgServiceMinutes}</strong></li>
+      </ul>
+      <a class=\"kp-link\" href=\"/admin/requests\">Ver todas las solicitudes</a>
+    </div>
+  </section>
+` }) %>
+

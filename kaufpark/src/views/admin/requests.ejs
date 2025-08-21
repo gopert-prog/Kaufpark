@@ -1,0 +1,18 @@
+<%- include('../partials/layout', { body: `
+  <section class=\"kp-card\">
+    <h1 class=\"kp-title\">Solicitudes</h1>
+    <div class=\"kp-list\">
+      ${requests.map(r => `
+        <div class=\"kp-item\">
+          <div>
+            <div class=\"kp-item-title\">Plaza ${r.spot}</div>
+            <div class=\"kp-item-sub\">${r.status} · Creado: ${new Date(r.created_at).toLocaleString('es-CL')}</div>
+            ${r.started_at ? `<div class=\"kp-item-sub\">Inicio: ${new Date(r.started_at).toLocaleString('es-CL')}</div>` : ''}
+            ${r.finished_at ? `<div class=\"kp-item-sub\">Fin: ${new Date(r.finished_at).toLocaleString('es-CL')}</div>` : ''}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  </section>
+` }) %>
+
